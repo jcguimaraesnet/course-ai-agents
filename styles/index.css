@@ -1,0 +1,32 @@
+/* Estilos globais do deck (carregados automaticamente pelo Slidev). */
+
+/* Prefixo "#" padronizado nos títulos dos slides.
+   Evita ter que escrever "\#" manualmente em cada título. */
+.slidev-layout h1::before,
+.slidev-layout h2::before {
+  content: '#';
+  margin-right: 0.3em;
+  font-weight: 400;
+  opacity: 0.4;
+}
+
+/* Opt-out por slide: basta adicionar `class: no-hash` ao frontmatter do slide. */
+.slidev-layout.no-hash h1::before,
+.slidev-layout.no-hash h2::before {
+  content: none;
+  margin-right: 0;
+}
+
+/* Layouts em que o prefixo NÃO faz sentido (capa, seção, destaque, autor). */
+.slidev-layout.cover h1::before,
+.slidev-layout.cover h2::before,
+.slidev-layout.intro h1::before,
+.slidev-layout.section h1::before,
+.slidev-layout.statement h1::before,
+.slidev-layout.fact h1::before,
+.slidev-layout.quote h1::before,
+.slidev-layout.custom-author h1::before,
+.slidev-layout.custom-author h2::before {
+  content: none;
+  margin-right: 0;
+}

@@ -1,0 +1,27 @@
+{
+  "name": "course-ai-agents",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "slidev slide-course-ai-agents.md --open",
+    "build": "slidev build slide-course-ai-agents.md --base /course-ai-agents/ --out dist",
+    "export": "slidev export slide-course-ai-agents.md"
+  },
+  "devDependencies": {
+    "@iconify-json/logos": "^1.2.11",
+    "@iconify-json/ri": "^1.2.10",
+    "@iconify-json/teenyicons": "^1.2.2",
+    "@slidev/cli": "^52.17.0",
+    "@slidev/theme-default": "^0.25.0",
+    "@types/seedrandom": "^3.0.8",
+    "prettier": "^3.9.5",
+    "prettier-plugin-slidev": "^1.0.5",
+    "seedrandom": "^3.0.5",
+    "unocss": "66.7.3"
+  },
+  "dependencies": {
+    "@iconify-json/iconoir": "^1.2.11",
+    "slidev-component-pager": "^1.1.0",
+    "slidev-theme-dracula": "^0.2.5"
+  }
+}

@@ -1,0 +1,10 @@
+node_modules/
+dist/
+.slidev/
+*.log
+
+# WSL / NTFS — metadados de arquivos baixados pelo Windows
+*:Zone.Identifier
+
+# OS
+.DS_Store
