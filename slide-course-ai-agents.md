@@ -106,6 +106,8 @@ image: /pessoas-apresentacao.jpg
 layout: two-cols-header
 layoutClass: gap-8
 class: flex items-center justify-center
+sourceLabel: playlist
+source: https://learning.oreilly.com/playlists/28c7e41a-c907-4940-8353-15994ad0d830
 ---
 
 # Bibliografia do curso
@@ -118,13 +120,12 @@ class: flex items-center justify-center
 
 <AssetImg src="book-an-illustrtated-guide.jpg" class="rounded-lg h-70" />
 
-::bottom::
-playlist: https://learning.oreilly.com/playlists/28c7e41a-c907-4940-8353-15994ad0d830
-
 ---
 layout: two-cols-header
 layoutClass: gap-8
 class: flex items-center justify-center
+sourceLabel: playlist
+source: https://learning.oreilly.com/playlists/28c7e41a-c907-4940-8353-15994ad0d830
 ---
 
 # Bibliografia do curso
@@ -136,9 +137,6 @@ class: flex items-center justify-center
 ::right::
 
 <AssetImg src="book-beginning-chatgpt-for-python.jpg" class="rounded-lg h-70" />
-
-::bottom::
-playlist: https://learning.oreilly.com/playlists/28c7e41a-c907-4940-8353-15994ad0d830
 
 
 ---
@@ -165,6 +163,15 @@ class: flex items-center justify-center
 
 
 ---
+layout: center
+---
+
+# **Conceitos**: o que é um Agente?
+
+
+
+
+---
 layout: quote-image
 image: /agent-3-components.png
 ---
@@ -175,7 +182,7 @@ image: /agent-3-components.png
 
 ::default::
 
-"Um **agente baseado em LLM** é composto por três componentes principais: *cérebro*, *percepção* e *ação*."
+"Um **agente** é composto por três componentes principais: *cérebro*, *percepção* e *ação*."
 
 
 — Xi et. al. "The Rise and Potential of Large Language Model Based Agents: A Survey”, 2025
@@ -204,6 +211,7 @@ class: flex items-center justify-center
 ---
 
 # O que é um Agente?
+#### **Agentes de IA são mais poderoso que chatbots de IA**
 
 ::left::
 
@@ -258,15 +266,24 @@ class: flex items-center justify-center
 
 
 ---
+layout: default
+sourceLabel: Lista completa
+source: https://openrouter.ai/models
+---
 
-## O que é o Antigravity?
+# Large Language Models (LLMs)
 
-<v-clicks>
+#### **O cérebro dos agentes são os LLMs**
 
-- IDE **agent-first**: foi desenhada para você trabalhar *com* agentes de IA, não só escrever código.
-- Tem três espaços principais, cada um com um propósito.
+<br/>
 
-</v-clicks>
+|  descrição   |  OpenAI   |  Google   |
+| --- | --- | --- |
+| rápido e econômico | **gpt-5.6-luna** | **gemini-3.1-flash-lite** |
+| equilíbrio | **gpt-5.6-terra** | **gemini-3.5-flash** |
+| raciocínio complexo | **gpt-5.6-sol** | **gemini-3.1-pro** |
+| imagens | **gpt-image-2** | **gemini-3.1-flash-image** |
+| | [developers.openai.com](https://developers.openai.com/api/docs/models) | [ai.google.dev](https://ai.google.dev/gemini-api/docs/models) |
 
 ---
 
