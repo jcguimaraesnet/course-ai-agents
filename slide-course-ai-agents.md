@@ -231,7 +231,7 @@ class: flex items-center justify-center
 
 # Prompts e Agentes
 
-#### **Prompts definem quem o agente é e o que faz**
+#### **Prompts definem o papel do agente e o que deve fazer**
 
 ::left::
 
@@ -253,7 +253,6 @@ class: flex items-center justify-center
 
 # Retorne no formato JSON abaixo ...
 ```
-
 
 </WindowMockup>
 
