@@ -15,12 +15,33 @@ comark: true
 layout: cover
 glowSeed: 229
 footer: false
+presenter: true
 drawings:
   presenterOnly: true
 addons:
   - slidev-component-pager
   - window-mockup
-presenter: true
+  - slidev-addon-python-runner
+# Optional configuration for this runner
+python:
+  # Install packages from PyPI. Default: []
+  installs: ["cowsay"]
+
+  # Code executed to set up the environment. Default: ""
+  prelude: |
+    GREETING_FROM_PRELUDE = "Hello, Slidev!"
+
+  # Automatically load the imported builtin packages. Default: true
+  loadPackagesFromImports: true
+
+  # Disable annoying warning from `pandas`. Default: true
+  suppressDeprecationWarnings: true
+
+  # Always reload the Python environment when the code changes. Default: false
+  alwaysReload: false
+
+  # Options passed to `loadPyodide`. Default: {}
+  loadPyodideOptions: {}
 ---
 
 # Fundamentos de Agentes com Python e APIs
@@ -445,33 +466,149 @@ uv sync (instala, desinstala e atualiza)
 -->
 
 
-
+---
+layout: section
 ---
 
-## 🤖 Agent Manager
+## Meu primeiro **Agente** de Inteligência Artificial
 
-<v-clicks>
-
-- Onde você **delega tarefas** a agentes que executam vários passos.
-- Acompanha o progresso, planos e resultados do agente.
-- É o espaço do trabalho **autônomo / supervisionado**.
-
-</v-clicks>
 
 ---
+layout: default
+sourceLabel: Install UV
+source: https://docs.astral.sh/uv/getting-started/installation
+---
 
-## 🧪 Playground
+# Configuração do projeto Python
 
-<v-clicks>
+#### **Meu primeiro agente de IA**
 
-- Espaço para **experimentar** prompts e ideias rapidamente.
-- Testa comportamento de modelo/agente sem mexer no projeto.
-- É o espaço da **exploração**.
+<br/>
 
-</v-clicks>
+::code-group
+
+```sh [uv]
+mkdir my-first-agent
+cd my-first-agent
+uv python install 3.14
+uv init --python 3.14
+uv add openai-agents python-dotenv
+echo "OPENAI_API_KEY=sk-proj-xxxxxxxx" >> .env
+echo "GEMINI_API_KEY=AIzaSyxxxxxxxx" >> .env
+uv run main.py
+```
+
+```sh [pip]
+mkdir my-first-agent
+cd my-first-agent
+python -m venv .venv
+source .venv/bin/activate
+pip install openai-agents python-dotenv
+echo "OPENAI_API_KEY=sk-proj-xxxxxxxx" >> .env
+echo "GEMINI_API_KEY=AIzaSyxxxxxxxx" >> .env
+pip freeze > requirements.txt
+python main.py
+```
+::
+
+
+<!-- 
+o comando abaixo substitui tres linhas de comandos:
+```shell
+uv init my-first-agent --python 3.12
+```
+```shell
+mkdir my-first-agent
+uv python install 3.14
+uv init --python 3.14
+```
+-->
+
 
 ---
-layout: center
+layout: two-cols-header
+layoutClass: gap-8
+sourceLabel: Install UV
+source: https://docs.astral.sh/uv/getting-started/installation
+---
+
+# Chamadas síncronas e assíncronas em Python
+
+#### **Chamadas assíncronas 'não melhora' perfomance, mas permite concorrência**
+
+::left::
+
+<!-- 
+```py {monaco-run} {autorun:false}
+from termcolor import colored
+
+print(colored("Hello, Slidev!", "blue"))
+``` 
+-->
+
+
+```py {monaco-run} {autorun:false} { editorOptions: { lineNumbers: 'on', theme: 'vs-dark' } }
+import time
+
+def baixar(nome):
+    print(f"iniciando {nome}")
+    time.sleep(2) # esperando (rede, cpu..)
+    print(f"terminou {nome}")
+
+def main():
+    baixar("A")
+    baixar("B")
+    baixar("C")
+
+if __name__ == "__main__":
+    main()      # ⏱ 6 segundos
+```
+
+
+
+
+
+::right::
+
+```python [assíncrono]
+import asyncio
+
+async def baixar(nome):
+    print(f"iniciando {nome}")
+    await asyncio.sleep(2)  # esperando (rede, cpu..)
+    print(f"terminou {nome}")
+
+async def main():
+    await asyncio.gather(
+        baixar("A"), baixar("B"), baixar("C")
+    )
+
+if __name__ == "__main__":
+    asyncio.run(main())   # ⏱ 2 segundos
+```
+
+
+<!-- 
+await não significa "espere aqui". Significa "posso ser interrompido aqui — vá fazer outra coisa enquanto isso". É contraintuitivo pela palavra, e é a fonte de metade da confusão com async. 
+
+código assincrono começa ter ganho a longo prazo, quando as chamadas começam a empilhar
+
+#### sobre guarda de execução:
+_não existe entrypoint no python_ 
+```
+uv run main.py
+# python prenche com:
+ __name__ = "__main__"
+```
+
+```
+import main
+# python preenche
+ __name__ = "main"
+```
+
+-->
+
 ---
 
 ## Resumo
@@ -589,90 +726,14 @@ layout: center
 | Pedir uma mudança específica | **Command** |
 | Gerar algo do zero por instrução | **Command** |
 
----
-layout: cover
-glowSeed: 7
----
-
-# 1.4 — Projeto Python: venv + API key
-
-**Subcompetência:** Configurar projeto Python com virtualenv e API key no Antigravity.
 
 ---
 
-## Passo 1 — Criar o projeto e o ambiente virtual
+## Configurar a API key
 
-```bash {1|2|3}
-mkdir my_project
-cd my_project
-python -m venv .venv
-```
-
-> O `venv` isola as dependências do projeto.
-
----
-layout: two-cols
-layoutClass: gap-8
----
-
-## Passo 2 — Ativar o venv
-
-**macOS / Linux:**
-
-```bash
-source .venv/bin/activate
-```
-
-**Windows:**
-
-```bash
-.venv\Scripts\activate
-```
-
-::right::
-
-## Passo 3 — Instalar o SDK
-
-```bash
-pip install openai-agents
-```
-
----
-
-## Passo 4 — Configurar a API key
-
-**macOS / Linux:**
-
-```bash
-export OPENAI_API_KEY=sk-...
-```
-
-**Windows (PowerShell):**
-
-```powershell
-$env:OPENAI_API_KEY = "sk-..."
-```
 
 > A chave vem da plataforma da OpenAI. **Nunca** versione a chave no Git.
 
----
-layout: center
----
-
-## Resumo
-
-```text {1|2|3|4}{lines:false}
-python -m venv .venv          → cria o ambiente
-source .venv/bin/activate     → ativa
-pip install openai-agents     → instala o SDK
-export OPENAI_API_KEY=...      → autentica
-```
-
-<div class="text-sm opacity-70 mt-4">
-
-Fonte: OpenAI Agents SDK — *Quickstart* · <https://openai.github.io/openai-agents-python/quickstart/>
-
-</div>
 
 ---
 layout: cover

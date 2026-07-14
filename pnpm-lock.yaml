@@ -11,6 +11,9 @@ importers:
       '@iconify-json/iconoir':
         specifier: ^1.2.11
         version: 1.2.11
+      slidev-addon-python-runner:
+        specifier: ^0.1.3
+        version: 0.1.3
       slidev-addon-window-mockup:
         specifier: ^0.3.1
         version: 0.3.1(typescript@6.0.3)
@@ -36,6 +39,9 @@ importers:
       '@slidev/theme-default':
         specifier: ^0.25.0
         version: 0.25.0
+      '@slidev/types':
+        specifier: ^52.18.0
+        version: 52.18.0(@nuxt/kit@3.21.8)(@vue/compiler-sfc@3.5.39)(rolldown@1.1.5)(rollup@4.62.2)(typescript@6.0.3)(vite@8.1.4(@types/node@22.20.0)(jiti@2.7.0)(terser@5.49.0)(yaml@2.9.0))
       '@types/seedrandom':
         specifier: ^3.0.8
         version: 3.0.8
@@ -1469,32 +1475,16 @@ packages:
     cpu: [x64]
     os: [win32]
 
-  '@shikijs/core@4.3.0':
-    resolution: {integrity: sha512-EooU3i9F6IAE8kEu+AnGf9DFZWkQBZ+hJn3tLVbsH+61mtQiva5biai66fAA6nvFPXkLgvrh7BrR7YcJU83xQQ==}
-    engines: {node: '>=20'}
-
   '@shikijs/core@4.3.1':
     resolution: {integrity: sha512-ANMDxuaPsNMdDC1m4vfvhlDmJweMwkE5XitTwrq2rWHx5jM+dlm4MmHt2PP6t0uejfR77SuhrhJ0zEijIF/uhA==}
-    engines: {node: '>=20'}
-
-  '@shikijs/engine-javascript@4.3.0':
-    resolution: {integrity: sha512-hTv/KiFf2tpiqlACPiztGGurEARWIutB8YUhcrA1pUC7VzzwKO+g5crUocrLztrZ5ro5Z4hbXg7bYclETn3gSQ==}
     engines: {node: '>=20'}
 
   '@shikijs/engine-javascript@4.3.1':
     resolution: {integrity: sha512-JBItcnPuYq7jVJdZo/vMj94r+szT7XEjHFX+mvFDGSEIbVAXAGyHAHzhbWzpGOwYidCZrErJLLgn2PVeiokHnQ==}
     engines: {node: '>=20'}
 
-  '@shikijs/engine-oniguruma@4.3.0':
-    resolution: {integrity: sha512-1vMdN3gHfnKfLYwecUI2ITJI4RhHt96xEaJumVn7Heb0IlJ8WQMIH0Voak+2j22BpSNKdnOfB/pCTPnPm2gq7A==}
-    engines: {node: '>=20'}
-
   '@shikijs/engine-oniguruma@4.3.1':
     resolution: {integrity: sha512-OXyNMzg0pews+msMj4cHeqT4xiYKKvbnn6VbdAXxfoFl3SSx4fJTc8FadECuc5/H9p3BzhNAoAUXKwAu9rWYhg==}
-    engines: {node: '>=20'}
-
-  '@shikijs/langs@4.3.0':
-    resolution: {integrity: sha512-rnlqFbBRSys9bT4gl/5rw9RnS0W/I84ZldXPkO7cvlEMoV85TyF/aU01N7/NbSR776RNLjrJKjfFUXJR6wN1Cg==}
     engines: {node: '>=20'}
 
   '@shikijs/langs@4.3.1':
@@ -1522,15 +1512,6 @@ packages:
       vue:
         optional: true
 
-  '@shikijs/markdown-it@4.3.0':
-    resolution: {integrity: sha512-mB7DYihorKv5yY2Db8As1rEkWZ82cMEHkvbP+Qa6IO62ebkEnt+dDeGA0+vhN9ow+poprbTmIhDNA7bkPbB0hQ==}
-    engines: {node: '>=20'}
-    peerDependencies:
-      markdown-it-async: ^2.2.0
-    peerDependenciesMeta:
-      markdown-it-async:
-        optional: true
-
   '@shikijs/markdown-it@4.3.1':
     resolution: {integrity: sha512-dceX0rAylb4Rivp2dzbLEtxgG/DcW+dsiQJEqes0ohKiR1zlaWh4eQE43eI0TkzNdno/tDA6QJzYE5/CU3mTIQ==}
     engines: {node: '>=20'}
@@ -1544,16 +1525,8 @@ packages:
     resolution: {integrity: sha512-A8lB7DKVMWmT+EgzBQkw7pqMsc1NUogRM+CEyv3ldl0CcTctPd0oz7Lcb0d1iZmWYO3WJdpMUuISS4GAexHvhA==}
     engines: {node: '>=20'}
 
-  '@shikijs/primitive@4.3.0':
-    resolution: {integrity: sha512-CPkz64PTa5diRW1ggzMZH9VM/du4RNChYgVtgqrFcgruvIybmCvySv8GkiHSczUHXYuuR8TdKEwFx+UnZMpgdg==}
-    engines: {node: '>=20'}
-
   '@shikijs/primitive@4.3.1':
     resolution: {integrity: sha512-CXQRQOYy1leqQ8ceTeJdmXv/bsUY++6QyLpXJ94LZAAYj5X2SKRdc5ipguv4NPyGVKItB2PPwUpRNe0Sjh5S1A==}
-    engines: {node: '>=20'}
-
-  '@shikijs/themes@4.3.0':
-    resolution: {integrity: sha512-Avgt05YiT+Y3prjIc9lmQxhJzHBcCfR6cjiFW4OyaMBbt2A6trX5rfjUzx+Vj/mE9qpArYjatnqo9XPjQNW/AQ==}
     engines: {node: '>=20'}
 
   '@shikijs/themes@4.3.1':
@@ -1565,10 +1538,6 @@ packages:
     engines: {node: '>=20'}
     peerDependencies:
       typescript: '>=5.5.0'
-
-  '@shikijs/types@4.3.0':
-    resolution: {integrity: sha512-oc8b9U2SYvofKZk8e/737nIX0qwf6eV2vHFATeObAu7r+mUVpLs8Re0BmVkIjAWAYgkmG/CzLNo7rzuBzRu/wQ==}
-    engines: {node: '>=20'}
 
   '@shikijs/types@4.3.1':
     resolution: {integrity: sha512-CHFxE0jztBIZRHH6gxXE7DXUCFXjReEGxZ/j0rfSLGKZuwp2xBYycEP14875DSa9KLL/6700oxIq6oO6ef9K2g==}
@@ -1614,12 +1583,12 @@ packages:
     resolution: {integrity: sha512-X67V4cCgM0Sz50bP8GbVzmiL8DHC2IXvdKcsN7DlxHyf+/T4d9GveeGukwha5Fx3MuYeGZWKag7TFL2ZY4w54A==}
     engines: {node: '>=18.0.0'}
 
-  '@slidev/types@52.16.0':
-    resolution: {integrity: sha512-BCRP7CS/jHajhIIwmHjVykgFsETbR9+rDHzPKS6mHAB32Xjijag8i+wzmk87ct/4cSxq39YDZi4lVPuNFuSCxQ==}
-    engines: {node: '>=20.12.0'}
-
   '@slidev/types@52.17.0':
     resolution: {integrity: sha512-yqvQj3yGOON5GtJ9f+uP3hEyN9RlqQiAfhy66JfNGFfB3wqgxdyNo/u9ApRxi0KDPKIDc1nLkUxZ5IjcJUvhbA==}
+    engines: {node: '>=20.12.0'}
+
+  '@slidev/types@52.18.0':
+    resolution: {integrity: sha512-bnLTZFVvURCqVeH0bm+He22Xfvk3CxpKY4QLg6i4TlbWDX0tg6nDzJWcufdbnEueJPoQOQwgax0SNEN8xVqXkw==}
     engines: {node: '>=20.12.0'}
 
   '@trickfilm400/rollup-plugin-off-main-thread@3.0.0-pre1':
@@ -4021,6 +3990,10 @@ packages:
     resolution: {integrity: sha512-vYt7UD1U9Wg6138shLtLOvdAu+8DsC/ilFtEVHcH+wydcSpNE20AfSOduf6MkRFahL5FY7X1oU7nKVZFtfq8Fg==}
     engines: {node: '>=6'}
 
+  pyodide@0.26.4:
+    resolution: {integrity: sha512-z2CHsjVlhhJi5tYBF0AYAfNEPo3zq/z+xOpFtk1tweJkRaTqU4UK/7pLvo8DBU2VDPH31vB3pSI+8fnoqrVrFg==}
+    engines: {node: '>=18.0.0'}
+
   qs@6.15.3:
     resolution: {integrity: sha512-O9gl3zCl5h5blw1KGUzQKhA5oUXSl8rwUIM5o0S3nCXMliSvy5Dzx7/DJcI+SwgICv+IneSZwhBh1oSyEHA71A==}
     engines: {node: '>=0.6'}
@@ -4230,10 +4203,6 @@ packages:
     resolution: {integrity: sha512-7++dFhtcx3353uBaq8DDR4NuxBetBzC7ZQOhmTQInHEd6bSrXdiEyzCvG07Z44UYdLShWUyXt5M/yhz8ekcb1A==}
     engines: {node: '>=8'}
 
-  shiki@4.3.0:
-    resolution: {integrity: sha512-NKKjWzR6LIGL3sXBrWDw9sDS9cxx42/DkysaNqJEeOWE8Kix5gpak0bc00OfDVEO4oyXSyz8+aRaqKoBD1yo7A==}
-    engines: {node: '>=20'}
-
   shiki@4.3.1:
     resolution: {integrity: sha512-oR+qDVi2OjX1tmDpyv+3KviX01KzO6Af+0NNnKnsp9491UEGz2YpxTuJboS/6VhYpTdqzmuJBuiTlrAWWJAssw==}
     engines: {node: '>=20'}
@@ -4264,6 +4233,9 @@ packages:
 
   sisteransi@1.0.5:
     resolution: {integrity: sha512-bLGGlR1QxBcynn2d5YmDX4MGjlZvy2MRBDRNHLJ8VI6l6+9FUiyTFNJ0IveOSP0bcXgVDPRcfGqA0pjaqUpfVg==}
+
+  slidev-addon-python-runner@0.1.3:
+    resolution: {integrity: sha512-JzxRnpsLrbTwb6ekCVcD8sKMfvtRD+4fnq16lf5UwbEn3UZTk/EnodSVU7i35RHPVxBxCP9N8l8X6SkUo3TmkA==}
 
   slidev-addon-window-mockup@0.3.1:
     resolution: {integrity: sha512-9IoKlPtpzb2suc05uUc5CZOnwBgeoDdZsbDpRlYs2fgy9pz+rf87osSqijLBVORibUUmSMNAnqNAJvKLGEQcpw==}
@@ -6384,14 +6356,6 @@ snapshots:
   '@rollup/rollup-win32-x64-msvc@4.62.2':
     optional: true
 
-  '@shikijs/core@4.3.0':
-    dependencies:
-      '@shikijs/primitive': 4.3.0
-      '@shikijs/types': 4.3.0
-      '@shikijs/vscode-textmate': 10.0.2
-      '@types/hast': 3.0.4
-      hast-util-to-html: 9.0.5
-
   '@shikijs/core@4.3.1':
     dependencies:
       '@shikijs/primitive': 4.3.1
@@ -6400,31 +6364,16 @@ snapshots:
       '@types/hast': 3.0.5
       hast-util-to-html: 9.0.5
 
-  '@shikijs/engine-javascript@4.3.0':
-    dependencies:
-      '@shikijs/types': 4.3.0
-      '@shikijs/vscode-textmate': 10.0.2
-      oniguruma-to-es: 4.3.6
-
   '@shikijs/engine-javascript@4.3.1':
     dependencies:
       '@shikijs/types': 4.3.1
       '@shikijs/vscode-textmate': 10.0.2
       oniguruma-to-es: 4.3.6
 
-  '@shikijs/engine-oniguruma@4.3.0':
-    dependencies:
-      '@shikijs/types': 4.3.0
-      '@shikijs/vscode-textmate': 10.0.2
-
   '@shikijs/engine-oniguruma@4.3.1':
     dependencies:
       '@shikijs/types': 4.3.1
       '@shikijs/vscode-textmate': 10.0.2
-
-  '@shikijs/langs@4.3.0':
-    dependencies:
-      '@shikijs/types': 4.3.0
 
   '@shikijs/langs@4.3.1':
     dependencies:
@@ -6438,11 +6387,6 @@ snapshots:
       shiki: 4.3.1
       vue: 3.5.39(typescript@6.0.3)
 
-  '@shikijs/markdown-it@4.3.0':
-    dependencies:
-      markdown-it: 14.2.0
-      shiki: 4.3.0
-
   '@shikijs/markdown-it@4.3.1':
     dependencies:
       markdown-it: 14.3.0
@@ -6454,21 +6398,11 @@ snapshots:
       '@shikijs/types': 4.3.1
       '@shikijs/vscode-textmate': 10.0.2
 
-  '@shikijs/primitive@4.3.0':
-    dependencies:
-      '@shikijs/types': 4.3.0
-      '@shikijs/vscode-textmate': 10.0.2
-      '@types/hast': 3.0.4
-
   '@shikijs/primitive@4.3.1':
     dependencies:
       '@shikijs/types': 4.3.1
       '@shikijs/vscode-textmate': 10.0.2
       '@types/hast': 3.0.5
-
-  '@shikijs/themes@4.3.0':
-    dependencies:
-      '@shikijs/types': 4.3.0
 
   '@shikijs/themes@4.3.1':
     dependencies:
@@ -6482,11 +6416,6 @@ snapshots:
       typescript: 6.0.3
     transitivePeerDependencies:
       - supports-color
-
-  '@shikijs/types@4.3.0':
-    dependencies:
-      '@shikijs/vscode-textmate': 10.0.2
-      '@types/hast': 3.0.4
 
   '@shikijs/types@4.3.1':
     dependencies:
@@ -6756,17 +6685,17 @@ snapshots:
 
   '@slidev/types@0.47.5': {}
 
-  '@slidev/types@52.16.0(@nuxt/kit@3.21.8)(@vue/compiler-sfc@3.5.39)(rolldown@1.1.5)(rollup@4.62.2)(typescript@6.0.3)(vite@8.1.4(@types/node@22.20.0)(jiti@2.7.0)(terser@5.49.0)(yaml@2.9.0))':
+  '@slidev/types@52.17.0(@nuxt/kit@3.21.8)(@vue/compiler-sfc@3.5.39)(rolldown@1.1.5)(rollup@4.62.2)(typescript@6.0.3)(vite@8.1.4(@types/node@22.20.0)(jiti@2.7.0)(terser@5.49.0)(yaml@2.9.0))':
     dependencies:
       '@antfu/utils': 9.3.0
-      '@shikijs/markdown-it': 4.3.0
+      '@shikijs/markdown-it': 4.3.1
       '@vitejs/plugin-vue': 6.0.7(vite@8.1.4(@types/node@22.20.0)(jiti@2.7.0)(terser@5.49.0)(yaml@2.9.0))(vue@3.5.39(typescript@6.0.3))
       '@vitejs/plugin-vue-jsx': 5.1.6(vite@8.1.4(@types/node@22.20.0)(jiti@2.7.0)(terser@5.49.0)(yaml@2.9.0))(vue@3.5.39(typescript@6.0.3))
       katex: 0.17.0
       mermaid: 11.16.0
       monaco-editor: 0.55.1
-      shiki: 4.3.0
-      unocss: 66.7.3(vite@8.1.4(@types/node@22.20.0)(jiti@2.7.0)(terser@5.49.0)(yaml@2.9.0))
+      shiki: 4.3.1
+      unocss: 66.7.5(vite@8.1.4(@types/node@22.20.0)(jiti@2.7.0)(terser@5.49.0)(yaml@2.9.0))
       unplugin-icons: 23.0.1(@vue/compiler-sfc@3.5.39)
       unplugin-vue-markdown: 32.0.0(rolldown@1.1.5)(rollup@4.62.2)(vite@8.1.4(@types/node@22.20.0)(jiti@2.7.0)(terser@5.49.0)(yaml@2.9.0))
       vite-plugin-inspect: 11.4.1(@nuxt/kit@3.21.8)(vite@8.1.4(@types/node@22.20.0)(jiti@2.7.0)(terser@5.49.0)(yaml@2.9.0))
@@ -6799,7 +6728,7 @@ snapshots:
       - vite
       - webpack
 
-  '@slidev/types@52.17.0(@nuxt/kit@3.21.8)(@vue/compiler-sfc@3.5.39)(rolldown@1.1.5)(rollup@4.62.2)(typescript@6.0.3)(vite@8.1.4(@types/node@22.20.0)(jiti@2.7.0)(terser@5.49.0)(yaml@2.9.0))':
+  '@slidev/types@52.18.0(@nuxt/kit@3.21.8)(@vue/compiler-sfc@3.5.39)(rolldown@1.1.5)(rollup@4.62.2)(typescript@6.0.3)(vite@8.1.4(@types/node@22.20.0)(jiti@2.7.0)(terser@5.49.0)(yaml@2.9.0))':
     dependencies:
       '@antfu/utils': 9.3.0
       '@shikijs/markdown-it': 4.3.1
@@ -9257,7 +9186,7 @@ snapshots:
   mermaid@11.16.0:
     dependencies:
       '@braintree/sanitize-url': 7.1.2
-      '@iconify/utils': 3.1.3
+      '@iconify/utils': 3.1.4
       '@mermaid-js/parser': 1.2.0
       '@types/d3': 7.4.3
       '@upsetjs/venn.js': 2.0.0
@@ -9779,6 +9708,13 @@ snapshots:
 
   punycode@2.3.1: {}
 
+  pyodide@0.26.4:
+    dependencies:
+      ws: 8.21.0
+    transitivePeerDependencies:
+      - bufferutil
+      - utf-8-validate
+
   qs@6.15.3:
     dependencies:
       es-define-property: 1.0.1
@@ -10073,17 +10009,6 @@ snapshots:
 
   shebang-regex@3.0.0: {}
 
-  shiki@4.3.0:
-    dependencies:
-      '@shikijs/core': 4.3.0
-      '@shikijs/engine-javascript': 4.3.0
-      '@shikijs/engine-oniguruma': 4.3.0
-      '@shikijs/langs': 4.3.0
-      '@shikijs/themes': 4.3.0
-      '@shikijs/types': 4.3.0
-      '@shikijs/vscode-textmate': 10.0.2
-      '@types/hast': 3.0.4
-
   shiki@4.3.1:
     dependencies:
       '@shikijs/core': 4.3.1
@@ -10133,6 +10058,13 @@ snapshots:
 
   sisteransi@1.0.5: {}
 
+  slidev-addon-python-runner@0.1.3:
+    dependencies:
+      pyodide: 0.26.4
+    transitivePeerDependencies:
+      - bufferutil
+      - utf-8-validate
+
   slidev-addon-window-mockup@0.3.1(typescript@6.0.3):
     dependencies:
       vue: 3.5.39(typescript@6.0.3)
@@ -10146,7 +10078,7 @@ snapshots:
 
   slidev-theme-dracula@0.2.5(@nuxt/kit@3.21.8)(@vue/compiler-sfc@3.5.39)(rolldown@1.1.5)(rollup@4.62.2)(typescript@6.0.3)(vite@8.1.4(@types/node@22.20.0)(jiti@2.7.0)(terser@5.49.0)(yaml@2.9.0)):
     dependencies:
-      '@slidev/types': 52.16.0(@nuxt/kit@3.21.8)(@vue/compiler-sfc@3.5.39)(rolldown@1.1.5)(rollup@4.62.2)(typescript@6.0.3)(vite@8.1.4(@types/node@22.20.0)(jiti@2.7.0)(terser@5.49.0)(yaml@2.9.0))
+      '@slidev/types': 52.18.0(@nuxt/kit@3.21.8)(@vue/compiler-sfc@3.5.39)(rolldown@1.1.5)(rollup@4.62.2)(typescript@6.0.3)(vite@8.1.4(@types/node@22.20.0)(jiti@2.7.0)(terser@5.49.0)(yaml@2.9.0))
       codemirror-theme-vars: 0.1.2
       prism-theme-vars: 0.2.5
       theme-vitesse: 1.0.0
