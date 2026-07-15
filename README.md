@@ -30,7 +30,7 @@ Abre em <http://localhost:3030>.
 | `slide-course-ai-agents.md` | O deck (entrada do Slidev) |
 | `layouts/` | Layouts customizados (`custom-author`, `image-x`) |
 | `components/` | Componentes Vue (`GitHubIcon`) |
-| `global-top.vue` | Barra inferior com o `<Pager/>` (todos os slides) |
+| `slide-bottom.vue` | Barra inferior com número da página e fonte (todos os slides) |
 | `global-bottom.vue` | Fundo com efeito *glow* (todos os slides) |
 | `styles/index.css` | Estilos globais (prefixo `#` nos títulos) |
 | `public/` | Imagens |

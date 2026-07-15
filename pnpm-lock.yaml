@@ -17,9 +17,6 @@ importers:
       slidev-addon-window-mockup:
         specifier: ^0.3.1
         version: 0.3.1(typescript@6.0.3)
-      slidev-component-pager:
-        specifier: ^1.1.0
-        version: 1.1.0(@slidev/client@52.17.0(@modelcontextprotocol/sdk@1.29.0(zod@3.25.76))(@nuxt/kit@3.21.8)(@vue/compiler-sfc@3.5.39)(lightningcss@1.32.0)(rolldown@1.1.5)(rollup@4.62.2)(vite@8.1.4(@types/node@22.20.0)(jiti@2.7.0)(terser@5.49.0)(yaml@2.9.0)))(vue@3.5.39(typescript@6.0.3))
       slidev-theme-dracula:
         specifier: ^0.2.5
         version: 0.2.5(@nuxt/kit@3.21.8)(@vue/compiler-sfc@3.5.39)(rolldown@1.1.5)(rollup@4.62.2)(typescript@6.0.3)(vite@8.1.4(@types/node@22.20.0)(jiti@2.7.0)(terser@5.49.0)(yaml@2.9.0))
@@ -4239,13 +4236,6 @@ packages:
 
   slidev-addon-window-mockup@0.3.1:
     resolution: {integrity: sha512-9IoKlPtpzb2suc05uUc5CZOnwBgeoDdZsbDpRlYs2fgy9pz+rf87osSqijLBVORibUUmSMNAnqNAJvKLGEQcpw==}
-
-  slidev-component-pager@1.1.0:
-    resolution: {integrity: sha512-2POr6X4HC0rLer0gawrJQGR7PgMfiwS2502h5LjWUzd0kkh0P/WzZnPwISw/KQq3WoOTZWAJ7JrMwtzQPCxrsg==}
-    engines: {node: '>=14.0.0', slidev: '>=0.48.0'}
-    peerDependencies:
-      '@slidev/client': ^0.48.0
-      vue: ^3.2.34
 
   slidev-theme-dracula@0.2.5:
     resolution: {integrity: sha512-MLRjGzO1gUEAk0uRY3H4WzlUs564RMgC14yS2YGcDZn3YH5ZPGun7bh3PbezXmWX9LYR6kQZieB9prT8QPcs9A==}
@@ -10070,11 +10060,6 @@ snapshots:
       vue: 3.5.39(typescript@6.0.3)
     transitivePeerDependencies:
       - typescript
-
-  slidev-component-pager@1.1.0(@slidev/client@52.17.0(@modelcontextprotocol/sdk@1.29.0(zod@3.25.76))(@nuxt/kit@3.21.8)(@vue/compiler-sfc@3.5.39)(lightningcss@1.32.0)(rolldown@1.1.5)(rollup@4.62.2)(vite@8.1.4(@types/node@22.20.0)(jiti@2.7.0)(terser@5.49.0)(yaml@2.9.0)))(vue@3.5.39(typescript@6.0.3)):
-    dependencies:
-      '@slidev/client': 52.17.0(@modelcontextprotocol/sdk@1.29.0(zod@3.25.76))(@nuxt/kit@3.21.8)(@vue/compiler-sfc@3.5.39)(lightningcss@1.32.0)(rolldown@1.1.5)(rollup@4.62.2)(vite@8.1.4(@types/node@22.20.0)(jiti@2.7.0)(terser@5.49.0)(yaml@2.9.0))
-      vue: 3.5.39(typescript@6.0.3)
 
   slidev-theme-dracula@0.2.5(@nuxt/kit@3.21.8)(@vue/compiler-sfc@3.5.39)(rolldown@1.1.5)(rollup@4.62.2)(typescript@6.0.3)(vite@8.1.4(@types/node@22.20.0)(jiti@2.7.0)(terser@5.49.0)(yaml@2.9.0)):
     dependencies:

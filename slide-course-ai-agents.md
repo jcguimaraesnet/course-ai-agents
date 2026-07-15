@@ -8,6 +8,7 @@ colorSchema: dark
 fonts:
   sans: DM Sans
   weights: "200,400,600,700"
+contextMenu: false
 highlighter: shiki
 lineNumbers: true
 transition: fade-out
@@ -19,7 +20,6 @@ presenter: true
 drawings:
   presenterOnly: true
 addons:
-  - slidev-component-pager
   - window-mockup
   - slidev-addon-python-runner
 # Optional configuration for this runner
@@ -54,15 +54,15 @@ nota 123
 
 # Ementa do curso
 
-- **Etapa 1** — Introdução
-- **Etapa 2** — OpenAI Agents SDK
-- **Etapa 3** — Configuração de Agentes
-- **Etapa 4** — Otimização de Agentes
-- **Etapa 5** — Uso de Ferramentas
-- **Etapa 6** — Modelos Pydantic
-- **Etapa 7** — Agentes com Memória
-- **Etapa 8** — Memória Persistente
-- **Etapa 9** — Agentes Assíncronos
+- **Etapa 1** — <Link to="etapa1" title="Introdução"/>
+- **Etapa 2** — <Link to="etapa2" title="OpenAI Agents SDK"/>
+- **Etapa 3** — <Link to="etapa3" title="Configuração de Agentes"/>
+- **Etapa 4** — <Link to="etapa4" title="Otimização de Agentes"/>
+- **Etapa 5** — <Link to="etapa5" title="Uso de Ferramentas"/>
+- **Etapa 6** — <Link to="etapa6" title="Modelos Pydantic"/>
+- **Etapa 7** — <Link to="etapa7" title="Agentes com Memória"/>
+- **Etapa 8** — <Link to="etapa8" title="Memória Persistente"/>
+- **Etapa 9** — <Link to="etapa9" title="Agentes Assíncronos"/>
 
 <!--
 Ementa do curso — visão geral das 9 etapas.
@@ -208,6 +208,7 @@ image: /agent-3-components.png
 
 ---
 layout: quote
+routeAlias: etapa1
 ---
 
 ::title::
@@ -466,7 +467,8 @@ uv sync (instala, desinstala e atualiza)
 layout: section
 ---
 
-## Meu primeiro **Agente** de Inteligência Artificial
+## Meu primeiro **Agente** de IA
+**Configuração e princípios básicos**
 
 
 ---
@@ -773,21 +775,6 @@ Engineer_agent = Agent(
 - Context
 - Final instructions
 
-
-
-
-async def main():
-  agent = Agent(name="Assistant", 
-                instructions="You are an AI agent",
-                model="gpt-4o")
-
-  result = await Runner.run(agent, "Tell me a joke")
-
-  print(result.final_output)
-
-if __name__ == "__main__":
-    await main() 
-    
 -->
 
 ---
@@ -939,12 +926,84 @@ Cadastre e crie uma API Key em um provedor:
 -->
 
 ---
-
-## Diferença entre APIs de LLM
-
+layout: section
 ---
 
-## IDE com Agente de Codificação
+## Meu primeiro **Agente** de IA
+**Live Coding**
+
+
+---
+layout: two-cols-header
+layoutClass: gap-8
+sourceLabel: Agent
+source: https://openai.github.io/openai-agents-python/agents/
+---
+
+::left::
+
+```python
+import os
+from dotenv import load_dotenv
+from agents import Agent, Runner
+
+load_dotenv()
+
+api_key = os.getenv("OPENAI_API_KEY")
+
+if not api_key:
+    print("Error: OPENAI_API_KEY not found. Please set it in your.env file.")
+else:
+    print("API Key loaded successfully.")
+
+agent = Agent(name="Echo Agent", instructions="Return the words 'Setup successful'")
+result = Runner.run_sync(agent, "Run setup")
+print(result.final_output)
+```
+
+::right::
+
+### Meu primeiro **Agente** de IA: 
+
+> Q&A para Engenharia de Software.
+
+- *name* -> identificador do agente
+- *model* -> id do modelo; que dá inteligência
+- *instructions* -> prompt de instrução
+
+<br/>
+
+<v-click at="+6">
+
+> [!TIP]
+> **instructions** -> existem muitos padrões proposto para elaboraçao de prompts estruturados. 
+- RTF (Role, Task, Format, etc)
+- PTCF (Persona, Task, Context, Format)
+
+</v-click>
+
+<!-- 
+
+```python
+import os
+from dotenv import load_dotenv
+from agents import Agent, Runner
+
+load_dotenv()
+
+api_key = os.getenv("OPENAI_API_KEY")
+
+if not api_key:
+    print("Error: OPENAI_API_KEY not found. Please set it in your.env file.")
+else:
+    print("API Key loaded successfully.")
+
+agent = Agent(name="Echo Agent", instructions="Return the words 'Setup successful'")
+result = Runner.run_sync(agent, "Run setup")
+print(result.final_output)
+```
+
+-->
 
 
 ---
@@ -963,6 +1022,14 @@ Cadastre e crie uma API Key em um provedor:
 ---
 
 ## Etapa 2
+
+
+---
+
+# Diferença entre tipos de APIs de LLM
+
+#### **Os provedores mais conhecidos de modelos de IA: OpenAI, Anthropic e Google**
+
 
 
 ---

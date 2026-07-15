@@ -5,14 +5,14 @@
  * Por que `slide-bottom` e não `global-bottom`/`global-top`:
  *   - Global layers são INSTÂNCIA ÚNICA, compartilhada entre todos os slides.
  *     A própria doc do Slidev avisa que, se o layer depende de estado de
- *     navegação (é o caso do <Pager/>), o export exige `--per-slide` para sair
+ *     navegação (é o caso do número da página), o export exige `--per-slide` para sair
  *     correto — e recomenda usar slide layers no lugar.
  *   - `slide-bottom` cria UMA INSTÂNCIA POR SLIDE, então cada uma enxerga o
  *     frontmatter do SEU slide via useSlideContext(). É isso que permite o
  *     `source` funcionar em QUALQUER layout, sem precisar de slot.
  *
  * Conteúdo da barra:
- *   esquerda -> <Pager/> (página / total)
+ *   esquerda -> página / total (<SlideCurrentNo/> / <SlidesTotal/>, nativos)
  *   direita  -> a fonte/link do slide, vinda do frontmatter
  *
  * Frontmatter (por slide):
@@ -41,7 +41,7 @@ const sourceLabel = computed<string | undefined>(() => $frontmatter.sourceLabel)
 <template>
   <footer v-if="showFooter" class="slidev-footer">
     <div class="slidev-footer__start">
-      <Pager />
+      <SlideCurrentNo />/<SlidesTotal />
     </div>
 
     <div v-if="source" class="slidev-footer__end">
@@ -74,14 +74,5 @@ const sourceLabel = computed<string | undefined>(() => $frontmatter.sourceLabel)
   display: inline-flex;
   align-items: center;
   gap: 0.4rem;
-}
-
-/* O <Pager/> do addon se posiciona sozinho (absolute, bottom/right).
-   Aqui neutralizamos isso para ele fluir dentro da barra. */
-.slidev-footer :deep(.pager) {
-  position: static;
-  padding: 0;
-  font-size: inherit;
-  line-height: inherit;
 }
 </style>
