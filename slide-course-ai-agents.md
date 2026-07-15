@@ -926,19 +926,120 @@ Cadastre e crie uma API Key em um provedor:
 -->
 
 ---
+layout: two-cols-header
+layoutClass: gap-8
+class: flex items-center justify-center
+---
+
+# Antigravity IDE
+
+#### **IDE da Google para desenvolvimento de software com agente de codificação**
+
+::left::
+
+<div class="text-left w-full">
+
+Download e documentação em:
+- [antigravity.google/download](https://antigravity.google/download#antigravity-ide)
+- [antigravity.google/docs/ide/overview](https://antigravity.google/docs/ide/overview)
+
+<br/>
+
+<v-click>
+
+> [!TIP]
+> A Google decidiu dividir o produto Antigravity em dois: Antigravity 2.0 e Antigravity IDE. 
+
+</v-click>
+
+</div>
+
+::right::
+
+<Transform :scale="0.9" origin="center">
+    <AssetImg
+    src="ide-google-antigravity.png"
+    class="rounded-lg"
+    />
+</Transform>
+
+<!-- 
+- checar se todos tem o Antigravity instalado
+- mostrar rapidamente o chatbot agentico
+ -->
+
+---
 layout: section
 ---
 
-## Meu primeiro **Agente** de IA
-**Live Coding**
+## Live Coding 1
+**Meu primeiro agente:** um agente para responder um Hello Word
 
+<!--
+- 
+
+```python
+import os
+from dotenv import load_dotenv
+from agents import Agent, Runner
+
+load_dotenv()
+
+api_key = os.getenv("OPENAI_API_KEY")
+
+if not api_key:
+    print("Error: OPENAI_API_KEY not found. Please set it in your.env file.")
+else:
+    print("API Key loaded successfully.")
+
+agent = Agent(name="Echo Agent", instructions="Return the words 'Hello Word!'")
+result = Runner.run_sync(agent, "Run agent")
+print(result.final_output)
+```
+
+-->
+
+---
+layout: section
+---
+
+## Live Coding 2
+**Meu segundo agente:** um agente de Q&A para assuntos de engenharia de software
+
+
+
+<!--
+- 
+
+```python
+import os
+from dotenv import load_dotenv
+from agents import Agent, Runner
+
+load_dotenv()
+
+api_key = os.getenv("OPENAI_API_KEY")
+
+if not api_key:
+    print("Error: OPENAI_API_KEY not found. Please set it in your.env file.")
+else:
+    print("API Key loaded successfully.")
+
+agent = Agent(name="Echo Agent", instructions="Return the words 'Hello Word!'")
+result = Runner.run_sync(agent, "Run agent")
+print(result.final_output)
+```
+
+-->
 
 ---
 layout: two-cols-header
 layoutClass: gap-8
-sourceLabel: Agent
-source: https://openai.github.io/openai-agents-python/agents/
 ---
+
+# Hands-on
+
+
 
 ::left::
 
@@ -947,77 +1048,38 @@ import os
 from dotenv import load_dotenv
 from agents import Agent, Runner
 
-load_dotenv()
+async def main():
+    load_dotenv()
 
-api_key = os.getenv("OPENAI_API_KEY")
+    api_key = os.getenv("")
 
-if not api_key:
-    print("Error: OPENAI_API_KEY not found. Please set it in your.env file.")
-else:
-    print("API Key loaded successfully.")
+    agent = Agent(name="", instructions="")
 
-agent = Agent(name="Echo Agent", instructions="Return the words 'Setup successful'")
-result = Runner.run_sync(agent, "Run setup")
-print(result.final_output)
+    result = await Runner.run(agent, "")
+
+    print(result.final_output)
+
+if __name__ == "__main__":
+    await main() 
+
 ```
 
 ::right::
 
-### Meu primeiro **Agente** de IA: 
 
-> Q&A para Engenharia de Software.
+**\#1** Agente para responder Hello Word<br/>
+**\#2** Agente de QA para qualquer assunto
 
-- *name* -> identificador do agente
-- *model* -> id do modelo; que dá inteligência
-- *instructions* -> prompt de instrução
+- [ ] download antigravity
+- [ ] criar projeto
+- [ ] instalar uv/python
+- [ ] adicionar pacotes
+- [ ] criar API KEY
+- [ ] usar Agente e Runner
+- [ ] usar async/await
 
 <br/>
 
-<v-click at="+6">
-
-> [!TIP]
-> **instructions** -> existem muitos padrões proposto para elaboraçao de prompts estruturados. 
-- RTF (Role, Task, Format, etc)
-- PTCF (Persona, Task, Context, Format)
-
-</v-click>
-
-<!-- 
-
-```python
-import os
-from dotenv import load_dotenv
-from agents import Agent, Runner
-
-load_dotenv()
-
-api_key = os.getenv("OPENAI_API_KEY")
-
-if not api_key:
-    print("Error: OPENAI_API_KEY not found. Please set it in your.env file.")
-else:
-    print("API Key loaded successfully.")
-
-agent = Agent(name="Echo Agent", instructions="Return the words 'Setup successful'")
-result = Runner.run_sync(agent, "Run setup")
-print(result.final_output)
-```
-
--->
-
-
----
-
-## Live Coding
-
-
----
-
-## Hands-on
-
-- Exercício 1
-- Exercício 2
-- Exercício 3
 
 ---
 
@@ -1025,6 +1087,9 @@ print(result.final_output)
 
 
 ---
+src: ./slide-etapa2.md  # This slide only contains a frontmatter
+---
+
 
 # Diferença entre tipos de APIs de LLM
 
