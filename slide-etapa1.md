@@ -388,7 +388,7 @@ async def main():
     )
 
 if __name__ == "__main__":
-    await main()
+    asyncio.run(main())
 ```
 
 
@@ -445,6 +445,8 @@ await main()
 
 
 <!-- 
+não é possível usar asyncio.run(main()) porque o código já envelopado em Pyodide 
+
 await não significa "espere aqui". Significa "posso ser interrompido aqui — vá fazer outra coisa enquanto isso". É contraintuitivo pela palavra, e é a fonte de metade da confusão com async. 
 
 código assincrono começa ter ganho a longo prazo, quando as chamadas começam a empilhar
@@ -540,8 +542,8 @@ source: https://openai.github.io/openai-agents-python/agents/
 from agents import Agent
 
 Engineer_agent = Agent(
-    name="Software Engineer Agent"
-    model="gpt-5.4-mini"
+    name="Software Engineer Agent",
+    model="gpt-5.4-mini",
     instructions="""
         # Papel
         Você é um agente de IA 
@@ -609,9 +611,9 @@ source: https://openai.github.io/openai-agents-python/ref/run/
 from agents import Agent, Runner
 
 async def main():
-    Engineer_agent = Agent(
-        name="Software Engineer Agent"
-        model="gpt-5.4-mini"
+    agent = Agent(
+        name="Software Engineer Agent",
+        model="gpt-5.4-mini",
         instructions="""Você é especialista em 
         engenharia de software."""
     )
@@ -625,7 +627,7 @@ async def main():
     print(result.final_output)
 
 if __name__ == "__main__":
-    await main() 
+    asyncio.run(main())
 ```
 
 
@@ -862,13 +864,12 @@ layoutClass: gap-8
 
 ```python
 import os
+import asyncio
 from dotenv import load_dotenv
 from agents import Agent, Runner
 
 async def main():
     load_dotenv()
-
-    api_key = os.getenv("")
 
     agent = Agent(name="", instructions="")
 
@@ -877,8 +878,7 @@ async def main():
     print(result.final_output)
 
 if __name__ == "__main__":
-    await main() 
-
+    asyncio.run(main())
 ```
 
 ::right::
