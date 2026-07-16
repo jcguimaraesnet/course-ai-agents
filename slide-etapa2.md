@@ -225,6 +225,7 @@ if __name__ == "__main__":
 
 - [ ] escolha um provedor
 - [ ] crie a API Key
+- [ ] configure o .env
 - [ ] desenvolva o agente
 
 <br/>
