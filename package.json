@@ -3,9 +3,9 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "slidev slide-course-ai-agents.md --open",
-    "build": "slidev build slide-course-ai-agents.md --base /course-ai-agents/ --out dist",
-    "export": "slidev export slide-course-ai-agents.md"
+    "dev": "slidev slides.md --open",
+    "build": "slidev build slides.md --base /course-ai-agents/ --out dist",
+    "export": "slidev export slides.md"
   },
   "devDependencies": {
     "@iconify-json/logos": "^1.2.11",

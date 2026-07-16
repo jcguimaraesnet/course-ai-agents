@@ -27,7 +27,7 @@ Abre em <http://localhost:3030>.
 
 | Caminho | Descrição |
 |---------|-----------|
-| `slide-course-ai-agents.md` | O deck (entrada do Slidev) |
+| `slides.md` | O deck (entrada do Slidev) |
 | `layouts/` | Layouts customizados (`custom-author`, `image-x`) |
 | `components/` | Componentes Vue (`GitHubIcon`) |
 | `slide-bottom.vue` | Barra inferior com número da página e fonte (todos os slides) |
