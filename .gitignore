@@ -3,6 +3,9 @@ dist/
 .slidev/
 *.log
 
+# segredos
+.env
+
 # WSL / NTFS — metadados de arquivos baixados pelo Windows
 *:Zone.Identifier
 

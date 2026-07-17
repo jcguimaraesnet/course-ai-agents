@@ -6,6 +6,56 @@ routeAlias: etapa2
 **Entendendo o básico**
 
 ---
+layout: two-cols-header
+layoutClass: gap-8
+class: flex items-start justify-center
+sourceLabel: Tracing
+source: https://openai.github.io/openai-agents-python/tracing/
+---
+
+# Rastreamento
+
+#### **O Agents SDK rastreia de forma automática vários eventos na execução de agentes**
+
+<br/>
+
+::left::
+
+<div class="text-left w-full">
+
+> [!IMPORTANT]
+> Para modelos **não OpenAI**, desative o rastreamento.
+
+<div class="h-2" />
+
+<v-click>
+
+Há três maneiras para desativar:
+
+- `set_tracing_disabled(True)` &nbsp;⭐
+- `OPENAI_AGENTS_DISABLE_TRACING=1`
+- `RunConfig.tracing_disabled = true`
+
+
+</v-click>
+
+</div>
+
+::right::
+
+<div class="flex flex-col items-center gap-3">
+
+<Transform :scale="1" origin="top">
+    <AssetImg
+    src="openai-plataform-developer-traces.png"
+    class="rounded-lg border-10 border-white"
+    />
+</Transform>
+
+
+</div>
+
+---
 layout: default
 sourceLabel: Install UV
 source: https://docs.astral.sh/uv/getting-started/installation
@@ -92,7 +142,7 @@ print(resp.output_text)
 layout: default
 ---
 
-# Chat Completions API vs Responses API
+# Quando usar Chat Completions e Responses API
 
 #### **A importância das duas APIs**
 
@@ -101,7 +151,7 @@ layout: default
 <v-clicks every="1">
 
 - OpenAI Agents SDK usa por padrão a Responses API
-- Praticamente nenhum provedor usa o padrão de Response API
+- Praticamente nenhum provedor usa o padrão de Response API (ou suporta parcialmente)
 - OpenAI definiu um formato (Chat Completions), e o mercado copiou (OpenAI-compatible).
 - A API Chat Completions se tornou língua universal na industria (DeepSeek, Perplexity, OpenRouter, etc)
 - Anthropic e Google oferecem outros formatos de API (com alguma compatibilidade com a Chat Completions API)
@@ -188,6 +238,309 @@ source: https://ai.google.dev/gemini-api/docs/pricing
 </Transform>
 
 
+
+---
+layout: default
+---
+
+# Histórico de mensagens e tipos de papeis
+
+#### **As roles *system*, *user* e *assistant* são importantes para desenvolver chats contextuais**
+
+<br/>
+
+<Transform :scale="0.8">
+
+| role | quem&nbsp;escreve | conteúdo (exemplo) |
+|---|---|---|
+| `system` | você (dev) | Você é um especialista em engenharia de software. Seja objetivo. |
+| `user` | usuário | O que é injeção de dependência? |
+| `assistant` | modelo | É fornecer as dependências de uma classe por fora, em vez de ela mesma criá-las. |
+| `user` | usuário | E que vantagem isso traz nos testes? **tem contexto** |
+| `assistant` | modelo | Permite trocar a dependência real por um dublê e testar a classe isolada. |
+
+</Transform>
+
+
+---
+layout: two-cols-header
+layoutClass: gap-8
+---
+
+# Chat Contextual com Chat Completions API
+
+::left::
+
+
+```python [main.py]{15-19,22}{maxHeight:'320px'}
+import asyncio
+from dotenv import load_dotenv
+from agents import Agent, Runner, set_default_openai_api, set_tracing_disabled
+
+load_dotenv()
+set_default_openai_api("chat_completions")
+set_tracing_disabled(True)
+
+agent = Agent(
+    name="Professor",
+    # role: system
+    instructions="Você é um professor de história.",
+)
+
+history = [
+    {"role": "user", "content": "Qual a capital da França?"},
+    {"role": "assistant", "content": "É Paris."},
+    {"role": "user", "content": "E a população dela?"},
+]
+
+async def main():
+    result = await Runner.run(agent, history)
+    print(result.final_output)
+
+if __name__ == "__main__":
+    asyncio.run(main())
+```
+
+
+
+::right::
+
+> [!CAUTION]
+> O histórico de mensagens é necessário para que o modelo entenda o contexto da última mensagem.
+
+<!--
+# Este é um exemplo fixo para fins didático.
+
+# Faça o teste usando Open Router
+OPENAI_API_KEY=
+OPENAI_BASE_URL=https://openrouter.ai/api/v1
+OPENAI_DEFAULT_MODEL=google/gemma-4-26b-a4b-it:free
+-->
+
+---
+layout: two-cols-header
+layoutClass: gap-8
+---
+
+# Chat multi-turno com Chat Completions API
+
+::left::
+
+
+```python [main.py]{16,23,25,29}{maxHeight:'320px'}
+import asyncio
+from dotenv import load_dotenv
+from agents import Agent, Runner, set_default_openai_api, set_tracing_disabled
+
+load_dotenv()
+set_default_openai_api("chat_completions")
+set_tracing_disabled(True)
+
+agent = Agent(
+    name="Professor",
+    # role: system
+    instructions="Você é um professor de história.",
+)
+
+async def main():
+    history = []
+    while True:
+        pergunta = input("> ")
+        if pergunta.strip().lower() == "sair":
+            break
+
+        # role: user
+        history.append({"role": "user", "content": pergunta})
+
+        result = await Runner.run(agent, history)
+        print(result.final_output)
+
+        # role: assistant
+        history.append({"role": "assistant", "content": result.final_output})
+
+if __name__ == "__main__":
+    asyncio.run(main())
+```
+
+
+
+::right::
+
+> [!IMPORTANT]
+> O histórico de mensagens deve ser armazenado e reenviado a cada nova requisição para que o modelo entenda o contexto.
+
+<!--
+> Qual a capital da França?
+
+> E a população dela?
+
+> E quem a fundou?
+
+> Em que ano ela passou a existir?
+-->
+
+---
+layout: two-cols-header
+layoutClass: gap-8
+---
+
+# Chat multi-turno com Responses API
+
+::left::
+
+
+```python [main.py]{15,25,30}{maxHeight:'320px'}
+import asyncio
+from dotenv import load_dotenv
+from agents import Agent, Runner, set_tracing_disabled
+
+load_dotenv()
+set_tracing_disabled(True)
+
+agent = Agent(
+    name="Professor",
+    # role: system
+    instructions="Você é um professor de história.",
+)
+
+async def main():
+    previous_id = None
+    while True:
+        pergunta = input("> ")
+        if pergunta.strip().lower() == "sair":
+            break
+
+        # role: user -> só a pergunta nova, sem histórico
+        result = await Runner.run(
+            agent,
+            pergunta,
+            previous_response_id=previous_id,
+        )
+        print(result.final_output)
+
+        # o servidor da OpenAI guarda a conversa; levamos só o id
+        previous_id = result.last_response_id
+
+if __name__ == "__main__":
+    asyncio.run(main())
+```
+
+
+
+::right::
+
+> [!TIP]
+> O histórico não é reenviado: cada requisição leva apenas a nova mensagem e o identificador da resposta anterior. A OpenAI guarda a conversa.
+
+<!--
+O histórico de mensagens é armazenado nos servidores da OpenAI por 30 dias.
+-->
+
+---
+layout: two-cols-header
+layoutClass: gap-8
+---
+
+# Ajuste de aleatoriedade com temperatura
+
+::left::
+
+```python [main.py]{3,11,15}{maxHeight:'320px'}
+import asyncio, os
+from dotenv import load_dotenv
+from agents import (Agent, Runner, ModelSettings,
+                    set_default_openai_api, set_tracing_disabled)
+
+load_dotenv() 
+set_default_openai_api("chat_completions")
+set_tracing_disabled(True)
+
+async def main():
+    for temp in (0.0, 2.0):
+        agent = Agent(
+            name="Sorveteiro",
+            instructions="Responda com uma única palavra.",
+            model_settings=ModelSettings(temperature=temp),
+        )
+        print(f"\n=== temperature={temp} ===")
+        for i in range(3):
+            result = await Runner.run(agent, "Diga um sabor de sorvete.")
+            print(f"{i+1}. {result.final_output}")
+
+if __name__ == "__main__":
+    asyncio.run(main())
+```
+
+::right::
+
+> [!CAUTION]
+> Ajuste `temperature` **ou** `top_p`, nunca os dois juntos: ambos mexem no mesmo sorteio e o efeito combinado é difícil de prever.
+
+<!--
+O .env precisa das 3 variáveis (exemplo com Groq):
+OPENAI_API_KEY=gsk_...
+OPENAI_BASE_URL=https://api.groq.com/openai/v1
+OPENAI_MODEL=llama-3.3-70b-versatile
+A OPENAI_BASE_URL é lida sozinha pela lib da OpenAI; trocar de provedor é trocar o .env, sem tocar no código.
+
+Por que slogan e não uma pergunta factual: com temperatura alta, "qual a capital da França?" continua respondendo Paris.
+Aleatoriedade só aparece quando existe mais de uma resposta boa — tarefa criativa. Para extração/classificação, use temperatura baixa.
+
+O loop roda a MESMA pergunta 3 vezes: é o jeito de mostrar a variação ao vivo, com uma execução só.
+Rode de novo com temperature=0.0 e compare — as 3 saídas ficam praticamente idênticas.
+
+A recomendação de não mexer nos dois é da própria doc da OpenAI ("altering this or top_p but not both").
+Na Groq, temperature=0 vira 1e-8 internamente; o intervalo aceito é 0 a 2.
+-->
+
+---
+layout: default
+sourceLabel: ModelSettings
+source: https://openai.github.io/openai-agents-python/models/#common-advanced-modelsettings-options
+---
+
+# Objeto ModelSettings
+
+#### **O objeto Model Settings oferece vários parâmetros para usar com LLMs**
+
+<br/>
+
+<Transform :scale="0.7">
+
+| Propriedade | Descrição | Valores&nbsp;possíveis&nbsp;&nbsp;&nbsp;&nbsp; | Default |
+|---|---|---|---|
+| `temperature` | Aleatoriedade na escolha do próximo token | `0.0` a `2.0` | `None` |
+| `top_p` | Limita a escolha aos tokens mais prováveis | `0.0` a `1.0` | `None` |
+| `max_tokens` | Limite de tokens gerados na resposta | `> 0` | `None` |
+| `frequency_penalty` | Penaliza tokens já usados, reduzindo repetição | `-2.0` a `2.0`| `None` |
+
+</Transform>
+
+<Transform :scale="0.7" origin="top left">
+
+> [!IMPORTANT]
+> A família **GPT-5** (raciocínio) não suporta `temperature` nem `top_p`. <br/>
+> No lugar deles, configure `reasoning.effort` e `verbosity`.
+
+</Transform>
+
+<!--
+temperatura ->  ex.: `0.2` factual, `1.4` criativo
+top_p -> — ex.: `0.9` = top 90% da massa 
+max_tokens -> até o teto do modelo — ex.: `500`
+frequency_penalty ->  ex.: `0.5` 
+
+
+Default `None` não é zero: o SDK omite o parâmetro da chamada e vale o default do provedor.
+Na OpenAI, omitir significa temperature=1.0, top_p=1.0 e frequency_penalty=0.0.
+Os intervalos são da API da OpenAI — o SDK aceita qualquer float e só repassa.
+Nem todo modelo/provedor suporta todos eles.
+
+A substituição no GPT-5 NÃO é automática: o SDK não converte temperature em effort, ele repassa o valor cru
+e a API rejeita com 400 "Unsupported parameter: 'temperature' is not supported with this model".
+Os defaults de effort/verbosity só entram quando você NÃO passa model_settings — se passar o seu, ele substitui inteiro.
+Exceção: os aliases gpt-5-chat-latest não são de raciocínio e aceitam temperature normalmente.
+-->
 
 ---
 layout: two-cols-header
