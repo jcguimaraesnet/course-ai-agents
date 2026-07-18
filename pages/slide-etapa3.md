@@ -210,7 +210,7 @@ source: https://developers.openai.com/cookbook/examples/gpt4-1_prompting_guide#p
 
 #### **A OpenAI sugere organizar o campo `instructions` em seções nomeadas**
 
-<br/>
+<div class="h-8" />
 
 <Transform :scale="0.7">
 

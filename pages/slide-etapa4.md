@@ -42,3 +42,30 @@ enquanto agentes colaboram em tarefas compartilhadas, alguns competem com outros
 > baseada em modelo
 Tomada de decisão baseada em probabilidade, tendências e estatística.
 -->
+
+---
+layout: default
+sourceLabel: Multi-agent patterns
+source: https://developers.googleblog.com/developers-guide-to-multi-agent-patterns-in-adk/
+---
+
+# Padrões de arquitetura em sistemas multiagentes
+
+#### **Alguns padrões de arquitetura para sistemas multiagentes têm sido propostos**
+
+<div class="h-2" />
+
+<div class="[&_table]:w-full text-xs">
+
+| *Padrão* | *Descrição* | *Tipo* |
+|---|---|---|
+| **Sequential Pipeline** | Agentes em sequência fixa; cada um processa a saída do anterior | Determinístico |
+| **Coordinator/Dispatcher** | Um agente central analisa a entrada e decide qual agente especializado aciona | Não determinístico |
+| **Parallel Fan-Out** | Vários agentes atuam em paralelo com perspectivas complementares; um agente final consolida | Determinístico |
+| **Hierarchical Decomposition** | Um agente de alto nível divide a tarefa em subtarefas para agentes subordinados | Não determinístico |
+| **Generator and Critic** | Um agente gera a solução e outro critica; se a validação falha, o feedback volta ao gerador | Não determinístico |
+| **Iterative Refinement** | Um gera, outro sugere melhorias e um terceiro refina ao longo de várias iterações | Não determinístico |
+| **Human-in-the-Loop** | O agente produz uma solução que depende de aprovação humana | Determinístico |
+| **Composite Patterns** | Um fluxo que combina vários padrões: coordenação, paralelismo, validação e aprovação humana | Misto |
+
+</div>
