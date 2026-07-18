@@ -221,7 +221,7 @@ source: https://ai.google.dev/gemini-api/docs/pricing
 
 #### **Plataformas do tipo agregador de provedores oferecem dezenas de modelos gratuitos**
 
-<br/>
+<div class="h-10" />
 
 <Transform :scale="0.8">
 
@@ -247,7 +247,7 @@ layout: default
 
 #### **As roles *system*, *user* e *assistant* são importantes para desenvolver chats contextuais**
 
-<br/>
+<div class="h-10" />
 
 <Transform :scale="0.8">
 
@@ -267,7 +267,11 @@ layout: two-cols-header
 layoutClass: gap-8
 ---
 
-# Chat Contextual com Chat Completions API
+# Chat contextual com Chat Completions API
+
+#### **Agentes de IA precisam de contexto para respostas mais assertivas**
+
+<div class="h-2" />
 
 ::left::
 
