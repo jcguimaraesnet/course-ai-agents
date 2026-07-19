@@ -23,7 +23,7 @@ source: https://arxiv.org/html/2501.06322v1
 — Tran et al. "Multi-Agent Collaboration Mechanisms: A Survey of LLMs", 2025
 
 <!--
-Tran et al. organizam a colaboração em tipos, estruturas e estratégias.
+# Tran et al. organizam a colaboração em tipos, estruturas e estratégias.
 
 # Tipos de colaboração
 > Cooperação: 
@@ -41,6 +41,9 @@ enquanto agentes colaboram em tarefas compartilhadas, alguns competem com outros
 
 > baseada em modelo
 Tomada de decisão baseada em probabilidade, tendências e estatística.
+
+
+# nota importante: Tenha agentes especializados que se destaquem em uma única tarefa, em vez de ter um agente de uso geral que se espera que seja bom em tudo.
 -->
 
 ---
@@ -64,7 +67,7 @@ source: https://developers.googleblog.com/developers-guide-to-multi-agent-patter
 | **Parallel Fan-Out** | Vários agentes atuam em paralelo com perspectivas complementares; um agente final consolida | Determinístico |
 | **Hierarchical Decomposition** | Um agente de alto nível divide a tarefa em subtarefas para agentes subordinados | Não determinístico |
 | **Generator and Critic** | Um agente gera a solução e outro critica; se a validação falha, o feedback volta ao gerador | Não determinístico |
-| **Iterative Refinement** | Um gera, outro sugere melhorias e um terceiro refina ao longo de várias iterações | Não determinístico |
+| **Iterative Refinement** | Um agente gerador, outro sugere melhorias e um terceiro refina ao longo de várias iterações | Não determinístico |
 | **Human-in-the-Loop** | O agente produz uma solução que depende de aprovação humana | Determinístico |
 | **Composite Patterns** | Um fluxo que combina vários padrões: coordenação, paralelismo, validação e aprovação humana | Misto |
 
@@ -74,4 +77,353 @@ source: https://developers.googleblog.com/developers-guide-to-multi-agent-patter
 # O link do google para arquiteturas multiagentes é uma das maiores referências atuais para o assunto
 
 > https://developers.googleblog.com/developers-guide-to-multi-agent-patterns-in-adk/
+-->
+
+---
+layout: two-cols-header
+layoutClass: gap-8
+class: flex items-center justify-center
+sourceLabel: Orquestração de agentes
+source: https://openai.github.io/openai-agents-python/multi_agent/
+---
+
+# Orquestrações de agentes
+
+#### **Há duas maneiras de orquestrar a colaboração entre agentes**
+
+<div class="h-1" />
+
+::left::
+
+<div class="text-left w-full self-start [&_ul]:my-10 [&_li]:mb-5">
+
+- **Orquestração via código:** fluxo mais determinístico e previsível em termos de desempenho e custo.
+- **Orquestração via LLM:** agente equipado com instruções que planeja e delega tarefas para outros agentes executarem.
+
+</div>
+
+::right::
+
+<div class="h-full flex items-center justify-center">
+    <AssetImg src="multiagent-patterns-architecture.png" class="w-full max-w-[440px] rounded-lg" />
+</div>
+
+---
+layout: two-cols-header
+layoutClass: gap-8
+sourceLabel: Orquestração de agentes
+source: https://openai.github.io/openai-agents-python/multi_agent/
+---
+
+# Orquestração via código (coordinator)
+
+#### **Um agente classifica e o código roteia para outro agente**
+
+<div class="h-2" />
+
+::left::
+
+```python [main.py] {17|37-43}{maxHeight:'320px',at:'+1'}
+import asyncio
+from dataclasses import dataclass
+from dotenv import load_dotenv
+from agents import (Agent, Runner,
+                    set_default_openai_api, set_tracing_disabled)
+
+@dataclass
+class Classification:
+    category: str  # "pre_venda" ou "pos_venda"
+
+classifier = Agent(
+    name="Classificador",
+    instructions=(
+        "Classifique a mensagem do cliente em 'pre_venda' "
+        "(antes da compra) ou 'pos_venda' (após a compra)."
+    ),
+    output_type=Classification,
+)
+
+pre_sale = Agent(
+    name="Pré-venda",
+    instructions="Tire dúvidas de clientes antes da compra.",
+)
+
+post_sale = Agent(
+    name="Pós-venda",
+    instructions="Atenda clientes após a compra (entrega, troca).",
+)
+
+async def main():
+    load_dotenv()
+    set_default_openai_api("chat_completions")
+    set_tracing_disabled(True)
+
+    question = input("Cliente: ")
+
+    # 1) o agente classifica (saída estruturada)
+    result = await Runner.run(classifier, question)
+
+    # 2) o código roteia para o agente certo
+    target = (post_sale if result.final_output.category == "pos_venda"
+              else pre_sale)
+    response = await Runner.run(target, question)
+
+    print(f"[{result.final_output.category}] {response.final_output}")
+
+if __name__ == "__main__":
+    asyncio.run(main())
+```
+
+::right::
+
+<v-click at="+1">
+
+> [!NOTE]
+> A saída estruturada do classificador (`category`) é o que permite o **código rotear** para o agente de pré-venda ou pós-venda.
+
+</v-click>
+
+<!--
+# inputs de teste (input do console)
+
+# pré-venda:
+Vocês parcelam a compra no cartão?
+
+# pós-venda:
+Meu pedido ainda não chegou, como faço?
+-->
+
+---
+layout: two-cols-header
+layoutClass: gap-8
+sourceLabel: Orquestração de agentes
+source: https://openai.github.io/openai-agents-python/multi_agent/
+---
+
+# Orquestração via código (sequential)
+
+#### **Um agente executa a tarefa e encaminha a saída para outro agente**
+
+<div class="h-2" />
+
+::left::
+
+```python [main.py] {26|29}{maxHeight:'320px',at:'+1'}
+import asyncio
+from dotenv import load_dotenv
+from agents import (Agent, Runner,
+                    set_default_openai_api, set_tracing_disabled)
+
+consultant = Agent(
+    name="Consultor",
+    instructions=("Entenda a necessidade do cliente "
+                  "e recomende um produto."),
+)
+
+writer = Agent(
+    name="Redator de proposta",
+    instructions=("Transforme a recomendação em uma "
+                  "mensagem de venda persuasiva."),
+)
+
+async def main():
+    load_dotenv()
+    set_default_openai_api("chat_completions")
+    set_tracing_disabled(True)
+
+    question = input("Cliente: ")
+
+    # 1) o primeiro agente trata a solicitação
+    recommendation = await Runner.run(consultant, question)
+
+    # 2) a saída do primeiro vira a entrada do segundo (sequencial)
+    proposal = await Runner.run(writer, recommendation.final_output)
+
+    print(proposal.final_output)
+
+if __name__ == "__main__":
+    asyncio.run(main())
+```
+
+::right::
+
+<v-click at="+1">
+
+> [!NOTE]
+> Dois agentes especializados atuam em **sequência**: a saída do primeiro (`recommendation`) vira a entrada do segundo.
+
+</v-click>
+
+<!--
+# inputs de teste (input do console)
+
+# exemplo 1:
+Quero um presente para alguém que gosta de corrida.
+
+# exemplo 2:
+Preciso de um notebook para trabalho e jogos leves.
+-->
+
+---
+layout: two-cols-header
+layoutClass: gap-8
+sourceLabel: Orquestração de agentes
+source: https://openai.github.io/openai-agents-python/multi_agent/
+---
+
+# Orquestração via código (generator/critic)
+
+#### **Um agente executa a tarefa e outro avalia**
+
+<div class="h-2" />
+
+::left::
+
+```python [main.py] {22|33-40}{maxHeight:'320px',at:'+1'}
+import asyncio
+from dataclasses import dataclass
+from dotenv import load_dotenv
+from agents import (Agent, Runner,
+                    set_default_openai_api, set_tracing_disabled)
+
+@dataclass
+class Review:
+    score: int      # nota de 0 a 10
+    feedback: str   # sugestões de melhoria
+
+generator = Agent(
+    name="Vendedor",
+    instructions=("Escreva uma mensagem de venda "
+                  "para o pedido do cliente."),
+)
+
+critic = Agent(
+    name="Crítico",
+    instructions=("Avalie a mensagem de venda de 0 a 10 "
+                  "e sugira melhorias."),
+    output_type=Review,
+)
+
+async def main():
+    load_dotenv()
+    set_default_openai_api("chat_completions")
+    set_tracing_disabled(True)
+
+    request = input("Cliente: ")
+    message = (await Runner.run(generator, request)).final_output
+
+    while True:
+        # o crítico avalia com nota (saída estruturada)
+        review = (await Runner.run(critic, message)).final_output
+        if review.score >= 8:  # nota razoável -> encerra
+            break
+        # o gerador reescreve com o feedback do crítico
+        revision = f"{request}\n\nMelhore com: {review.feedback}"
+        message = (await Runner.run(generator, revision)).final_output
+
+    print(message)
+
+if __name__ == "__main__":
+    asyncio.run(main())
+```
+
+::right::
+
+<v-click at="+1">
+
+> [!NOTE]
+> Dois agentes atuam num **loop `while`**: o gerador escreve e o crítico avalia com uma **nota** (saída estruturada). O loop repete até a nota ser razoável (`score >= 8`).
+
+</v-click>
+
+<!--
+# inputs de teste (input do console)
+
+# exemplo 1:
+Quero uma mensagem de venda para um tênis de corrida.
+
+# exemplo 2:
+Crie um anúncio para um notebook gamer.
+-->
+
+---
+layout: two-cols-header
+layoutClass: gap-8
+sourceLabel: Orquestração de agentes
+source: https://openai.github.io/openai-agents-python/multi_agent/
+---
+
+# Orquestração via código (fan-out)
+
+#### **Dois agentes executam em paralelo e outro consolida**
+
+<div class="h-2" />
+
+::left::
+
+```python [main.py] {31-35|37-40}{maxHeight:'320px',at:'+1'}
+import asyncio
+from dotenv import load_dotenv
+from agents import (Agent, Runner,
+                    set_default_openai_api, set_tracing_disabled)
+
+benefits_agent = Agent(
+    name="Benefícios",
+    instructions=("Liste os principais benefícios "
+                  "do produto para o cliente."),
+)
+
+objections_agent = Agent(
+    name="Objeções",
+    instructions=("Antecipe objeções do cliente "
+                  "e sugira respostas."),
+)
+
+consolidator = Agent(
+    name="Consolidador",
+    instructions=("Monte uma mensagem de venda final "
+                  "usando os benefícios e as objeções."),
+)
+
+async def main():
+    load_dotenv()
+    set_default_openai_api("chat_completions")
+    set_tracing_disabled(True)
+
+    request = input("Cliente: ")
+
+    # os dois agentes rodam em paralelo
+    benefits, objections = await asyncio.gather(
+        Runner.run(benefits_agent, request),
+        Runner.run(objections_agent, request),
+    )
+
+    # o terceiro agente consolida as duas saídas
+    briefing = (f"Benefícios: {benefits.final_output}\n\n"
+                f"Objeções: {objections.final_output}")
+    message = await Runner.run(consolidator, briefing)
+
+    print(message.final_output)
+
+if __name__ == "__main__":
+    asyncio.run(main())
+```
+
+::right::
+
+<v-click at="+1">
+
+> [!NOTE]
+> Os dois agentes rodam de forma **assíncrona/paralela** com `asyncio.gather`, e um terceiro **consolida** as duas saídas numa mensagem final.
+
+</v-click>
+
+<!--
+# inputs de teste (input do console)
+
+# exemplo 1:
+Quero vender um plano de academia para iniciantes.
+
+# exemplo 2:
+Preciso convencer um cliente a comprar um seguro de carro.
 -->

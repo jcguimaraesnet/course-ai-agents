@@ -296,7 +296,7 @@ if __name__ == "__main__":
 ```
 ::right::
 
-<v-click at="+6">
+<v-click at="+1">
 
 > [!NOTE]
 > **instructions** -> existem muitos padrões proposto para prompts estruturados de agentes. 
