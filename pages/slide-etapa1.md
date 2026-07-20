@@ -185,7 +185,7 @@ Download e documentação em:
 
 <br/>
 
-<v-click>
+<v-click at="+1">
 
 > [!TIP]
 > A Google decidiu dividir o produto Antigravity em dois: Antigravity 2.0 e Antigravity IDE. 
@@ -366,7 +366,8 @@ uv sync (instala, desinstala e atualiza)
 
 
 ---
-layout: default
+layout: two-cols-header
+layoutClass: gap-8
 sourceLabel: Install UV
 source: https://docs.astral.sh/uv/getting-started/installation
 ---
@@ -376,6 +377,8 @@ source: https://docs.astral.sh/uv/getting-started/installation
 #### **Meu primeiro agente de IA**
 
 <br/>
+
+::left::
 
 ::code-group
 
@@ -403,6 +406,11 @@ pip freeze > requirements.txt
 # python main.py # para executar
 ```
 ::
+
+::right::
+
+> [!NOTE]
+> O pacote **`python-dotenv`** serve para **carregar variáveis de ambiente** de um arquivo `.env` — que criaremos mais à frente.
 
 
 <!-- 
