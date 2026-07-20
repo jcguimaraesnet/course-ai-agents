@@ -649,4 +649,14 @@ class: flex items-center justify-center
 `mostrar um exemplo de notícia:`
 
 https://oglobo.globo.com/economia/tecnologia/noticia/2026/07/19/tokenmaxxing-flopou-agentes-de-ia-prometeram-eficiencia-mas-estao-entregando-boletos-altissimos.ghtml
+
+# Custo, desempenho (benchmark) e latencia são as métricas mais consideradas, não as únicas.
+
+> Tipo do modelo (imagem, multimodal, código, vídeo)
+
+> Tamanho da Janela de contexto
+
+> Modelo aberto ou fechado
+
+> outros
 -->
