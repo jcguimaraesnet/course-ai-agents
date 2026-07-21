@@ -768,3 +768,71 @@ source: https://developers.openai.com/api/docs/guides/model-selection
 
 # nem todo provedor fornece uma família de modelos em três níveis, e nesse caso pode fazer sentido considerar combinar modelos de outras famílias.
 -->
+
+---
+layout: two-cols-header
+layoutClass: gap-8
+sourceLabel: Orquestração de agentes
+source: https://openai.github.io/openai-agents-python/multi_agent/
+---
+
+# Dois agentes, dois modelos
+
+#### **Exemplo de sistema multiagente usando modelos diferentes**
+
+<div class="h-2" />
+
+::left::
+
+```python [main.py] {9,17,20}{maxHeight:'320px'}
+import asyncio
+from dotenv import load_dotenv
+from agents import (Agent, Runner,
+                    set_default_openai_api, set_tracing_disabled)
+
+# agente avançado: resolve casos que exigem raciocínio
+specialist = Agent(
+    name="Especialista",
+    model="deepseek-v4-pro",
+    instructions=("Resolva reclamações complexas de reembolso, "
+                  "avaliando o caso e propondo uma solução."),
+)
+
+# agente econômico: atende e faz a triagem
+triage = Agent(
+    name="Triagem",
+    model="deepseek-v4-flash",
+    instructions=("Responda dúvidas simples do cliente. "
+                  "Se for um caso de reembolso, use o handoff."),
+    handoffs=[specialist],
+)
+
+async def main():
+    load_dotenv()
+    set_default_openai_api("chat_completions")
+    set_tracing_disabled(True)
+
+    question = input("Cliente: ")
+    result = await Runner.run(triage, question)
+    print(result.final_output)
+
+if __name__ == "__main__":
+    asyncio.run(main())
+```
+
+::right::
+
+> [!NOTE]
+> A **triagem** roda no modelo econômico (`deepseek-v4-fast`), e ao encontrar um reembolso, o **handoff** transfere o controle para o **especialista**, no modelo avançado (`deepseek-v4-pro`).
+
+
+<!--
+# inputs de teste (input do console)
+`o código não é tão funcional porque não tem base de conhecimento, apenas para fins de exemplificação`
+
+# dúvida simples (fica na triagem, modelo econômico):
+Qual o horário de atendimento de vocês?
+
+# caso de reembolso (handoff para o especialista, modelo avançado):
+Comprei o produto errado e quero meu dinheiro de volta, o que faço?
+-->
