@@ -984,18 +984,24 @@ layout: default
 
 🤖 &nbsp;**Exercício \#1:** Prove que o agente esquece: a mesma pergunta com e sem `history`
 
-🤖 &nbsp;**Exercício \#2:** Crie um agente barista/tipo de café e varie `temperature`/`top_p`.
+🤖 &nbsp;**Exercício \#2:** Crie um agente barista/tipo de café com criatividade/aleatóriedade.
 
-🤖 &nbsp;**Exercício \#3:** Analise as diferenças entre execuções no exec #3 e tire conclusões.
+🤖 &nbsp;**Exercício \#3:** Crie um agente sorveteiro/sabor sorvete com criatividade/aleatóriedade.
 
-🤖 &nbsp;**Exercício \#4:** Meça os tokens de cada chamada e force uma resposta vazia com `max_tokens`
-
+🤖 &nbsp;**Exercício \#4:** Analise as diferenças entre execuções os exec `#2` e `#3` e tire conclusões.
 
 - [ ] escolher provedor gratuito e criar a API Key
 - [ ] configurar o `.env`: key, base URL e modelo
 - [ ] ativar Chat Completions e desativar o tracing
 - [ ] montar o `history` com as roles `user` e `assistant`
 - [ ] configurar o `ModelSettings`: temperature, top_p e max_tokens
-- [ ] ler o `usage` para comparar os tokens
 
 <br/>
+
+<!-- 
+O exercício 2 tem um aprendizado interessantes porque o domínio de café/barista/cafeteria 
+normalmente sinaliza que os modelos foram muito mais treinados com corpus de texto 
+de 'café' do que com 'cappuchino' por exemplo, então top_p e temperatura podem não surtir efeito
+porque o probabilidade da resposta, mesmo com temperatura alta, é de ser na maioria das vezes a 
+palavra 'café'. É um caso diferente do domínio de sorveteria. 
+-->
