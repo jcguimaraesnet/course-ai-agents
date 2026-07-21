@@ -841,12 +841,6 @@ async def main():
             model_settings=ModelSettings(max_tokens=limite),
         )
         result = await Runner.run(agent, "Quantos R tem em morango?")
-        u = result.context_wrapper.usage
-
-        print(f"\n=== max_tokens={limite} ===")
-        print(f"input:     {u.input_tokens}")
-        print(f"reasoning: {u.output_tokens_details.reasoning_tokens}")
-        print(f"output:    {u.output_tokens}")
         print(f"resposta:  {result.final_output!r}")
 
 if __name__ == "__main__":
@@ -860,9 +854,7 @@ if __name__ == "__main__":
 > O `max_tokens` serve como **teto de segurança**: garante que nenhuma resposta estoure o tamanho (e o custo) desejado.
 
 <!--
-# só funciona com um modelo de RACIOCÍNIO.
-
-# alguns modelos não tem raciocínio
+# teste simples, quando configurado com 100, resposta em branco, quando configurado com limite maior (500) a resposta aparece.
 
 # é um tipo de parâmetro mais usado como guardrail, para restringir em uso indevido.
 -->
