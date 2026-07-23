@@ -3,4 +3,4 @@ layout: section
 routeAlias: etapa1
 ---
 
-## **Etapa 1:** Agente com SDK Python
+## **Etapa 1:** Visão Geral do Projeto
