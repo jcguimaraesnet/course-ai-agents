@@ -159,7 +159,7 @@ class: flex items-center justify-center
 
 ::left::
 
-<div class="h-10" />
+<div class="w-full flex flex-col gap-1">
 
 Um **assistente de atendimento para um e-commerce**, disponível através de um chatbot.
 
@@ -168,6 +168,7 @@ O cliente faz **dois tipos de pedido**, que exigem capacidades diferentes:
 - **Tirar dúvidas** — políticas, trocas, catálogo _(o agente precisa saber e lembrar)_
 - **Consultar um pedido** — status de entrega em tempo real _(o agente precisa agir sobre um sistema externo)_
 
+</div>
 
 ::right::
 
